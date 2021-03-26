@@ -10,6 +10,7 @@ import { Input, Accordion, Typography, AccordionSummary, Card, CardContent, make
 import classes from '*.module.css';
 
 import Navbar1 from '../componentes/navbar2'
+import Navbar from '../componentes/navbar3'
 
 export interface TiposDatos {
   datosDrive: FichaDrive[] | []
@@ -145,7 +146,8 @@ export default function ProgramaListaFichas({datosDrive}:TiposDatos) {
 
 return (
   <div>
-    <Navbar1 texto={textoempresa} fn={filtrarCarpeta} />
+    {/* <Navbar1 texto={textoempresa} fn={filtrarCarpeta} /> */}
+    <Navbar texto={textoempresa} fn={filtrarCarpeta} />
     <br/><br/>
     <Input
                 type='text'

@@ -106,8 +106,10 @@ export default function ProgramaListaFichas({datosDrive}:TiposDatos) {
     return lista_formato
   }
  
-   const cambioNombre = (event:any) => {
+   const cambioNombre = (event) => {
     const valor = event.target.value
+    // const valor = event.value.replace(/[^a-ZA-Z0-9\s]/, "");
+
     if (valor === '') setlistaDrive(datosDrive) 
     setNombre(valor)
   }
@@ -159,6 +161,9 @@ return (
                 onDoubleClick={buscaUsuario}
                 onKeyUp={handleKeyPress}
                 placeholder="Escribe nombre a buscar"
+                margin="none"
+                style={{marginTop: 25}}
+                inputProps={{maxLength: 15}}
               />
     <br/><br/>
     { crearLista(listaDrive) }

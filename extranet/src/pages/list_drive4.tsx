@@ -1,5 +1,7 @@
 
 // Typescript:  https://youtu.be/v3lI29trIN8
+// useEffect: https://daveceddia.com/useeffect-hook-examples/
+
 
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
@@ -85,7 +87,7 @@ export default function ProgramaListaFichas({datosDrive}:TiposDatos) {
     if (lista.length === 0) return <p>No hay datos</p>
     const lista_formato = lista.map((element:any, index:number) => 
         
-        <Card variant="outlined"className={classes.root} key={element.id}>
+        <Card variant="outlined" className={classes.root} key={element.id}>
           <CardContent key={element.id} >
           <Typography className={classes.title}color="textPrimary" gutterBottom key={element.id} >
             <strong>{element.name}</strong>

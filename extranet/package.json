@@ -1,8 +1,9 @@
 {
-  "name": "extranet",
+  "name": "youtube-2020-feb-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "version" :"next --version",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -11,10 +12,12 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "axios": "^0.21.1",
     "framer-motion": "^3.10.2",
     "googleapis": "^67.1.1",
     "isomorphic-unfetch": "3.0.0",
     "next": "^10.0.7",
+    "query-string": "^7.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "swr": "0.2.0"

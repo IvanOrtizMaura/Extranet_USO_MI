@@ -6,12 +6,19 @@
 import {NextApiRequest, NextApiResponse} from 'next'
 
 const { google } = require('googleapis')
-const cadena = require('./project-307415-c123db35e353.json')
+//const cadena = require('./project-307415-c123db35e353.json')
 const scopes = ['https://www.googleapis.com/auth/drive']
   
+/*
 const auth = new google.auth.JWT(
   cadena.client_email, null,
   cadena.private_key, scopes
+)
+*/
+
+const auth = new google.auth.JWT(
+  process.env.client_email, null,
+  process.env.private_key, scopes
 )
 
 const drive = google.drive({ version: "v3", auth })

@@ -2,6 +2,7 @@
 // Typescript:  https://youtu.be/v3lI29trIN8
 // API DRIVE: https://medium.com/@bretcameron/how-to-use-the-google-drive-api-with-javascript-57a6cc9e5262
 
+import React from 'react';
 import fetch from 'isomorphic-unfetch';
 import { Fragment, useEffect, useState } from 'react'
 import FichaDrive from '../../api/FichaDrive'
@@ -9,12 +10,18 @@ import { makeStyles } from "@material-ui/core/styles"
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import { Button, Input, Popover } from "@material-ui/core";
+import { Button, Input, Popover, TextField, Snackbar } from "@material-ui/core";
+// import { Alert } from '@material-ui/lab';
+import MuiAlert, { AlertProps} from '@material-ui/lab/Alert';
 import Typography from "@material-ui/core/Typography";
 
-
-import Navbar1 from '../componentes/navbar2'
+import Navbar from '../componentes/navbar4'
 //import ListaComentarios from '../componentes/list_comentarios2'
+
+import Inputt from '../componentes/inputsearch';
+
+import { AnyARecord } from 'node:dns';
+
 
 export interface TiposDatos {
   datosDrive: FichaDrive[] | []
@@ -47,7 +54,7 @@ const useStyles = makeStyles({
 
 export default function ProgramaListaFichas({datosDrive}:TiposDatos) {
 
-  const [nombreUsuario, setNombre] = useState('')
+  const [nombreUsuario, setNombre] = React.useState('')
   const [listaDrive,setlistaDrive] = useState(datosDrive)
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -97,9 +104,19 @@ export default function ProgramaListaFichas({datosDrive}:TiposDatos) {
 
    const cambioNombre = (event:any) => {
     const valor = event.target.value
-    if (valor === '') setlistaDrive(datosDrive) 
-    setNombre(valor)
+    if (valor === '') setlistaDrive(datosDrive)
+    // const tildes = "àèìòùÀÈÌÒÙ_-áéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ"
+
+    // const error = () => {
+    //   const prueba = "Introduce caracteres válidos"
+    //   return <Alert severity="error">{prueba}</Alert>
+    // }
+
+    const newName = valor.replace(/[^a-zA-Z0-9À-ÖØ-öø-ÿ-_\s]/,  () => setOpen(true))
+    setNombre(newName)
   }
+
+
 
   const buscaUsuario = () => {
     const nomMinusculas = nombreUsuario.toLowerCase()
@@ -132,13 +149,27 @@ export default function ProgramaListaFichas({datosDrive}:TiposDatos) {
 
   const textoempresa = "Extranet"
 
+  // Cosas del alert y snackbar
+  const [open, setOpen] = React.useState(false);
+  function Alert(props: AlertProps) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
 return (
   <Fragment>
-    <Navbar1 texto={textoempresa} fn={filtrarCarpeta} />
+    <Navbar texto={textoempresa} fn={filtrarCarpeta} />
     <br/>
-    <Input
-      type='text'
+    <TextField
       id='nombre'
+      variant="outlined"
+      size="small"
+      label="Buscar"
       name='campo_nombre'
       className="buscador"
       value= {nombreUsuario}
@@ -146,7 +177,14 @@ return (
       onDoubleClick={buscaUsuario}
       onKeyUp={handleKeyPress}
       placeholder=" Escribe nombre a buscar"
+      style={{marginTop: 60, marginLeft: 5}}
+      inputProps={{
+        maxLength: 15
+      }}
     />
+    <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+      <Alert severity="error">Introduce caracteres válidos</Alert>
+    </Snackbar>
     <br/><br/>
     { crearLista(listaDrive) }
 

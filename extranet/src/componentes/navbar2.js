@@ -3,44 +3,49 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles, Theme, ThemeProvider} from "@material-ui/core/styles";
-import Image from 'next/image'
+//import Image from 'next/image'
 import Button from '@material-ui/core/Button';
 import Fragment from 'react'
-
+import Link from "next/link";
+import { ArrowRight } from "@material-ui/icons";
 
 // https://johnny.am/blog/n2-adding-google-fonts-to-nextjs-project
 
-
-
 const  useStyles = makeStyles(theme => ({
   barra:{
-    justifyContent: "space-around",
-    flexGrow:1,
-    margin:"0.5em",
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent:'left',
+    alignItems:'center',
+    margin:"0.5rem 0 0.5rem 0",
     fontFamily: "Arial",
-    fontSize: "0.5em",
-    color: 'white'
+    //fontSize: "0.5em",
+    color: 'white',
+    // paddingBottom:'0rem',
+    //borderBottom:'0.1rem solid #cccccc'
   },
   imagenes:{
-    paddingRight:"1em"
+    padding:'0 2rem 0.5rem 0.5rem'
   },
   textoTitulo:{
-    flexGrow:2,
     color:'#46747d',
-    fontSize: 14,
-    width: '6%'
+    fontSize: 16,
+    minWidth: '120px'
   },
   rootButton: {
-    //   background: 'linear-gradient(180deg, #FFFFFF 20%, #FFDDEE 80%)',
-    borderRadius: 3,
-    border: 10,
+    //justifyContent: 'right',
+    borderBottom: '1px solid #cccccc',
     color: 'black',
-    height: 22,
-    padding: '0 10px 0px 10px',
-    fontSize: '2em',
-    width:'14%',
-    //minWidth:'100px',
-    margin:'0%'
+    textAlign:'left',
+    alignContent:'right',
+    height: 38,
+    padding: '1rem 0.25rem 0.70rem 0',
+    fontSize: '0.75rem',
+    width: '300px',
+    margin:'0 0 0 0'
+    /* [theme.breakpoints.up(500)]: {
+      margin:'1rem 0 1rem 0'
+    }, */
   }
 
 }))
@@ -51,21 +56,29 @@ export default function Encabezado(props) {
   const classes = useStyles()
   
   return (
-  <div>
-  <AppBar position ="static" color="#bf2b54">
-    <Toolbar disableGutters className={classes.barra}>
+  <div  className={classes.barra}>
       <div className={classes.imagenes}>
-      <Image  src={"/images/logoUSO.png"}  alt="logo de empresa" width={160} height={80} />
+        { /* <Image  src={"/images/logoUSO.png"}  alt="logo de empresa" width={160} height={80} />  */}
+        <Link as={`/`} href={`/`}>
+          <a> 
+            <img src="/images/usoib.jpg" alt='ir a inicio'></img>
+          </a>
+        </Link>
       </div> 
-      <Typography className={classes.textoTitulo}>
+
+      <div>
+      <Typography className={classes.textoTitulo} color="textSecondary"  >
         {texto}
       </Typography>
-      <Button classes={{ root: classes.rootButton}} onClick={() => {fn("todo")} }>Todo</Button>
-      <Button classes={{root: classes.rootButton}} onClick={() => {fn("1pQe7vhFujf1a0pr3bfmN4tR9kd8-cVcM")} }>Difusión</Button>
-      <Button classes={{root: classes.rootButton}} onClick={() => {fn("1Xd4hBk6oGz8FIC6rBdcM44TdTTuI5xdg")} }>Noticias</Button>
-      <Button classes={{root: classes.rootButton}} onClick={() => {fn("1yWfAEKX-869SGntzl8jrxq66HIlK5Jvb")} }>Docs</Button>
-      </Toolbar>
-  </AppBar>
+      </div>
+  
+      <div>
+        <Button classes={{root: classes.rootButton}} onClick={() => {fn("1yWfAEKX-869SGntzl8jrxq66HIlK5Jvb")} }>Organización</Button>
+        <Button classes={{root: classes.rootButton}} onClick={() => {fn("1LRqAb9Dc8qgpaR6C3i3CHXRVL1dUwXfS")} }>A.Sindical</Button>
+        <Button classes={{root: classes.rootButton}} onClick={() => {fn("1pQe7vhFujf1a0pr3bfmN4tR9kd8-cVcM")} }>Formación</Button>
+        <Button classes={{root: classes.rootButton}} onClick={() => {fn("1Xd4hBk6oGz8FIC6rBdcM44TdTTuI5xdg")} }>Comunicados</Button>
+      </div> 
+
   </div>
   )
 
